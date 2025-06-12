@@ -10,4 +10,5 @@ export type CategorySearchBarProps = {
      setSelectedCategory?: (category: string) => void;
      setSelectedType?: (type: string) => void;
      setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
+     handleFilterClear: () => void;
     };

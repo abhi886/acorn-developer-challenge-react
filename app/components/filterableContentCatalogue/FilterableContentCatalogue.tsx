@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useState, useMemo } from 'react';
 import CategorySearchBar from '../categorySearchBar/CategorySearchBar';
 import ContentList from '../contentList/ContentList';
@@ -11,8 +11,20 @@ const FilterableContentCatalogue = ({ catalogueData }) => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const items = catalogueData.items || [];
+  const isFilterActive =
+    searchTerm || selectedCategory || selectedType || selectedTags.length > 0;
+
   const handleSearchChange = (newValue: string) => {
     setSearchTerm(newValue);
+  };
+
+  // function to handle the clear all button
+  const handleFilterClear = () => {
+    if (!isFilterActive) return;
+    setSearchTerm('');
+    setSelectedCategory('');
+    setSelectedType('');
+    setSelectedTags([]);
   };
 
   const categoryOption = [
@@ -63,6 +75,8 @@ const FilterableContentCatalogue = ({ catalogueData }) => {
           setSelectedCategory={setSelectedCategory}
           setSelectedType={setSelectedType}
           setSelectedTags={setSelectedTags}
+          isFilterActive={isFilterActive}
+          handleFilterClear={handleFilterClear}
         />
       </section>
 

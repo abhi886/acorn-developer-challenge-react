@@ -13,6 +13,8 @@ const CategorySearchBar: FunctionComponent<CategorySearchBarProps> = ({
   setSelectedCategory,
   setSelectedType,
   setSelectedTags,
+  handleFilterClear,
+  isFilterActive,
 }) => {
   return (
     <>
@@ -59,6 +61,15 @@ const CategorySearchBar: FunctionComponent<CategorySearchBarProps> = ({
             </option>
           ))}
         </select>
+        {isFilterActive && (
+          <button
+            type="button"
+            aria-label="Clear all filters"
+            onClick={handleFilterClear}
+          >
+            Clear Filters
+          </button>
+        )}
 
         <fieldset>
           <legend>Filter by tags</legend>
