@@ -3,7 +3,7 @@ import FilterableContentCatalogue from '@/app/components/filterableContentCatalo
 import {getCatalogue} from '@/app/services/getCatalogue';
 
 export default async function Home() {
-const {data : items } = await getCatalogue();
+const {data } = await getCatalogue();
   return (
       <main>
         <header>
@@ -11,7 +11,7 @@ const {data : items } = await getCatalogue();
         </header>
   
   {/* Catalogue Section */}
-       <FilterableContentCatalogue catalogueData={items}/>
+       <FilterableContentCatalogue catalogueData={data}/>
       </main>
   );
 }
