@@ -4,7 +4,7 @@ import { useState } from 'react';
 import CategorySearchBar from '../categorySearchBar/CategorySearchBar';
 import ContentList from '../contentList/ContentList';
 
-const FilterableContentCatalogue = () => {
+const FilterableContentCatalogue = ({catalogueData}) => {
     const [searchTerm, setSearchTerm] = useState<string>('');
 
     const handleSearchChange = (newValue: string) => {
@@ -14,8 +14,7 @@ const FilterableContentCatalogue = () => {
     <>
      <section aria-labelledby="filters-heading">
           <h2 id="filters-heading">Filter Catalogue</h2>
-          <CategorySearchBar         onSearchTermChange={handleSearchChange}
- searchTerm={searchTerm}/>
+          <CategorySearchBar onSearchTermChange={handleSearchChange} searchTerm={searchTerm}/>
         </section>
   
         <section aria-labelledby="results-heading">

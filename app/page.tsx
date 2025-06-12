@@ -1,6 +1,9 @@
 
 import FilterableContentCatalogue from '@/app/components/filterableContentCatalogue/FilterableContentCatalogue';
-export default function Home() {
+import {getCatalogue} from '@/app/services/getCatalogue';
+
+export default async function Home() {
+const {data : items } = await getCatalogue();
   return (
       <main>
         <header>
@@ -8,7 +11,7 @@ export default function Home() {
         </header>
   
   {/* Catalogue Section */}
-       <FilterableContentCatalogue />
+       <FilterableContentCatalogue catalogueData={items}/>
       </main>
   );
 }
