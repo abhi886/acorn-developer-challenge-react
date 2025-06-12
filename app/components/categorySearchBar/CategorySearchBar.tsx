@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { CategorySearchBarProps } from './PropTypes';
+import ComboBox from '../core/comboBox/ComboBox';
 
 const CategorySearchBar: FunctionComponent<CategorySearchBarProps> = ({
   searchTerm,
@@ -30,37 +31,20 @@ const CategorySearchBar: FunctionComponent<CategorySearchBarProps> = ({
           aria-label="Search catalogue"
         />
 
-        <label htmlFor="category">Category</label>
-        <select
-          id="category"
-          name="category"
-          aria-label="Select category"
+        <ComboBox
+          options={categoryOptions}
           value={selectedCategory}
-          onChange={(e) => setSelectedCategory?.(e.target.value)}
-        >
-          <option value="">All Categories</option>
-          {categoryOptions?.map((category, index) => (
-            <option key={index} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
+          onChange={setSelectedCategory}
+          label="Category"
+        />
 
-        <label htmlFor="type">Type</label>
-        <select
-          id="type"
-          name="type"
-          aria-label="Select type"
+        <ComboBox
+          options={typeOptions}
           value={selectedType}
-          onChange={(e) => setSelectedType?.(e.target.value)}
-        >
-          <option value="">All Types</option>
-          {typeOptions?.map((type, index) => (
-            <option key={index} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
+          onChange={setSelectedType}
+          label="Type"
+        />
+
         {isFilterActive && (
           <button
             type="button"
