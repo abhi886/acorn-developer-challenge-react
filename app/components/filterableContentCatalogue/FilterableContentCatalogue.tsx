@@ -1,6 +1,6 @@
 import React from 'react';
 import CategorySearchBar from '../categorySearchBar/CategorySearchBar';
-import CategoryList from '@/app/components/categoryList/CategoryList';
+import ContentList from '../contentList/ContentList';
 
 const FilterableContentCatalogue = () => {
   return (
@@ -12,7 +12,7 @@ const FilterableContentCatalogue = () => {
   
         <section aria-labelledby="results-heading">
           <h2 id="results-heading">Catalogue Results</h2>
-         <CategoryList />
+         <ContentList />
         </section>
     </>
   )
