@@ -1,22 +1,65 @@
 import React from 'react';
-import Image from 'next/image';
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+  Box,
+} from '@mui/material';
 
 const ContentCard = ({ item, onClick }) => {
   const { fullname, imageurl, summarytext } = item;
 
   return (
-    <li onClick={() => onClick(item)}>
+    <Card
+      sx={{
+        maxWidth: 345,
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       {imageurl ? (
-        <Image src={imageurl} alt={fullname} width={300} height={180} />
+        <CardMedia
+          component="img"
+          height="180"
+          image={imageurl}
+          alt={`Thumbnail image for ${fullname}`}
+        />
       ) : (
-        ''
+        <Box
+          sx={{
+            height: 180,
+            backgroundColor: '#f0f0f0',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#888',
+            fontStyle: 'italic',
+          }}
+        >
+          <Typography variant="body2" sx={{ fontStyle: 'inherit' }}>
+            No image available
+          </Typography>
+        </Box>
       )}
-      <h3>{fullname}</h3>
-      <p>
-        {summarytext.slice(0, 180)}
-        {summarytext.length > 180 && '...'}
-      </p>
-    </li>
+      <CardContent sx={{ flexGrow: 1 }}>
+        <Typography gutterBottom variant="h6" component="div">
+          {fullname}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {summarytext.slice(0, 150)}
+          {summarytext.length > 150 && '...'}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small" onClick={() => onClick(item)}>
+          View
+        </Button>
+      </CardActions>
+    </Card>
   );
 };
 
