@@ -48,7 +48,6 @@ const FilterableContentCatalogue = ({ catalogueData }) => {
     });
   }, [items, selectedCategory, selectedType, selectedTags, searchTerm]);
 
-  console.log('filtered category', filteredItems);
   return (
     <>
       <section aria-labelledby="filters-heading">
@@ -70,7 +69,27 @@ const FilterableContentCatalogue = ({ catalogueData }) => {
 
       <section aria-labelledby="results-heading">
         <h2 id="results-heading">Catalogue Results</h2>
-        <ContentList />
+
+        {filteredItems.length === 0 ? (
+          <p>
+            0 results for content matching <strong>{searchTerm}</strong>
+            {selectedCategory && (
+              <>
+                {' '}
+                in category <strong>{selectedCategory}</strong>
+              </>
+            )}
+            {selectedType && (
+              <>
+                {' '}
+                and <strong>{selectedType}</strong>
+              </>
+            )}
+            .
+          </p>
+        ) : (
+          <ContentList />
+        )}
       </section>
     </>
   );
