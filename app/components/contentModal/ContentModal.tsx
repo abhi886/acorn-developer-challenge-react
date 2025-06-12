@@ -10,6 +10,7 @@ const ContentModal = ({ selectedItem, closeModal }) => {
     tags,
     fullname,
     imageurl,
+    url,
   } = selectedItem;
   return (
     <div id="modal" onClick={closeModal}>
@@ -36,6 +37,9 @@ const ContentModal = ({ selectedItem, closeModal }) => {
         <p>
           <strong>Tags:</strong> {tags.map((t) => t.name).join(', ')}
         </p>
+        <a href={url} target="_blank" rel="noopener noreferrer">
+          View Full Content
+        </a>
       </div>
     </div>
   );
