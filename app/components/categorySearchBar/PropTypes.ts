@@ -4,4 +4,10 @@ export type CategorySearchBarProps = {
      categoryOptions?: string[];
      typeOptions?: string[];
      tagOptions?: string[];
-  };
+     selectedCategory?: string;
+     selectedType?: string; 
+     selectedTags?: string[];
+     setSelectedCategory?: (category: string) => void;
+     setSelectedType?: (type: string) => void;
+     setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
+    };

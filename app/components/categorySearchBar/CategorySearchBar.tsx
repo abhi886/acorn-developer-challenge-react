@@ -7,6 +7,11 @@ const CategorySearchBar  : FunctionComponent<CategorySearchBarProps>  = ({
   categoryOptions,
   typeOptions,
   tagOptions,
+  selectedCategory,
+  selectedType,
+  setSelectedCategory,
+  setSelectedType,
+  setSelectedTags
 }) => {
   return (
     <>
@@ -23,7 +28,7 @@ const CategorySearchBar  : FunctionComponent<CategorySearchBarProps>  = ({
         />
 
         <label htmlFor="category">Category</label>
-        <select id="category" name="category" aria-label="Select category">
+        <select id="category" name="category" aria-label="Select category" value={selectedCategory} onChange={(e) => setSelectedCategory?.(e.target.value)}>
           <option value="">All Categories</option>
           {categoryOptions?.map((category, index) => (
             <option key={index} value={category}>
@@ -33,7 +38,7 @@ const CategorySearchBar  : FunctionComponent<CategorySearchBarProps>  = ({
         </select>
 
         <label htmlFor="type">Type</label>
-        <select id="type" name="type" aria-label="Select type">
+        <select id="type" name="type" aria-label="Select type" value={selectedType} onChange={(e) => setSelectedType?.(e.target.value)}>
           <option value="">All Types</option>
           {typeOptions?.map((type, index) => (
             <option key={index} value={type}>
@@ -46,9 +51,18 @@ const CategorySearchBar  : FunctionComponent<CategorySearchBarProps>  = ({
           <legend>Filter by tags</legend>
           <div role="group" aria-label="Tag filters">
             {tagOptions?.map((tag) => (
-              <button key={tag} type="button">
-                {tag}
-              </button>
+          <button
+          key={tag}
+          onClick={() =>
+            setSelectedTags((prev) =>
+              prev.includes(tag)
+                ? prev.filter((t) => t !== tag)
+                : [...prev, tag]
+            )
+          }
+        >
+          {tag}
+        </button>
             ))}
           </div>
         </fieldset>

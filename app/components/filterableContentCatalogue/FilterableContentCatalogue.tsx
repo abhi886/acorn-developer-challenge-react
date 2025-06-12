@@ -6,6 +6,9 @@ import ContentList from '../contentList/ContentList';
 
 const FilterableContentCatalogue = ({catalogueData}) => {
     const [searchTerm, setSearchTerm] = useState<string>('');
+    const [selectedCategory, setSelectedCategory] = useState<string>("");
+    const [selectedType, setSelectedType] = useState<string>("");
+    const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const items = catalogueData.items || [];
   const handleSearchChange = (newValue: string) => {
@@ -29,7 +32,9 @@ const FilterableContentCatalogue = ({catalogueData}) => {
      <section aria-labelledby="filters-heading">
           <h2 id="filters-heading">Filter Catalogue</h2>
           <CategorySearchBar onSearchTermChange={handleSearchChange} searchTerm={searchTerm} categoryOptions={categoryOption}
-          typeOptions = {typeOptions} tagOptions={tagOptions}
+          typeOptions = {typeOptions} tagOptions={tagOptions} selectedCategory={selectedCategory}
+          selectedType={selectedType} selectedTags={selectedTags} setSelectedCategory={setSelectedCategory}
+          setSelectedType={setSelectedType} setSelectedTags={setSelectedTags}
           />
         </section>
   
