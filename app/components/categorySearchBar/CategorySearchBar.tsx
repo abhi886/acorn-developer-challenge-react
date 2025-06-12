@@ -9,6 +9,7 @@ const CategorySearchBar: FunctionComponent<CategorySearchBarProps> = ({
   tagOptions,
   selectedCategory,
   selectedType,
+  selectedTags,
   setSelectedCategory,
   setSelectedType,
   setSelectedTags,
@@ -62,21 +63,32 @@ const CategorySearchBar: FunctionComponent<CategorySearchBarProps> = ({
         <fieldset>
           <legend>Filter by tags</legend>
           <div role="group" aria-label="Tag filters">
-            {tagOptions?.map((tag) => (
-              <button
-                key={tag}
-                type="button"
-                onClick={() =>
-                  setSelectedTags((prev) =>
-                    prev.includes(tag)
-                      ? prev.filter((t) => t !== tag)
-                      : [...prev, tag]
-                  )
-                }
-              >
-                {tag}
-              </button>
-            ))}
+            {tagOptions?.map((tag) => {
+              const isSelected = selectedTags?.includes(tag);
+              return (
+                <button
+                  key={tag}
+                  type="button"
+                  onClick={() =>
+                    setSelectedTags((prev) =>
+                      prev.includes(tag)
+                        ? prev.filter((t) => t !== tag)
+                        : [...prev, tag]
+                    )
+                  }
+                  style={{
+                    padding: '6px 12px',
+                    margin: '4px',
+                    border: '1px solid #ccc',
+                    borderRadius: '4px',
+                    backgroundColor: isSelected ? '#007BFF' : '#fff',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {tag}
+                </button>
+              );
+            })}
           </div>
         </fieldset>
       </form>
