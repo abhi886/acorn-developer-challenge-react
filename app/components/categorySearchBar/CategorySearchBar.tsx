@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { CategorySearchBarProps } from './PropTypes';
 import ComboBox from '../core/comboBox/ComboBox';
+import Input from '../core/input/Input';
 
 const CategorySearchBar: FunctionComponent<CategorySearchBarProps> = ({
   searchTerm,
@@ -21,14 +22,15 @@ const CategorySearchBar: FunctionComponent<CategorySearchBarProps> = ({
     <>
       <form>
         <label htmlFor="search">Search</label>
-        <input
+        <Input
+          id="search"
+          label="Search Catalogue"
+          variant="outlined"
+          fullWidth
           value={searchTerm}
           onChange={(e) => onSearchTermChange(e.target.value)}
-          id="search"
-          name="search"
-          type="text"
           placeholder="Search catalogue..."
-          aria-label="Search catalogue"
+          inputProps={{ 'aria-label': 'Search catalogue' }}
         />
 
         <ComboBox
