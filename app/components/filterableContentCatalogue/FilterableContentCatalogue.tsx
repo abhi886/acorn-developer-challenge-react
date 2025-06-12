@@ -4,46 +4,52 @@ import { useState } from 'react';
 import CategorySearchBar from '../categorySearchBar/CategorySearchBar';
 import ContentList from '../contentList/ContentList';
 
-const FilterableContentCatalogue = ({catalogueData}) => {
-    const [searchTerm, setSearchTerm] = useState<string>('');
-    const [selectedCategory, setSelectedCategory] = useState<string>("");
-    const [selectedType, setSelectedType] = useState<string>("");
-    const [selectedTags, setSelectedTags] = useState<string[]>([]);
+const FilterableContentCatalogue = ({ catalogueData }) => {
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [selectedType, setSelectedType] = useState<string>('');
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const items = catalogueData.items || [];
   const handleSearchChange = (newValue: string) => {
-        setSearchTerm(newValue);
-      };
+    setSearchTerm(newValue);
+  };
 
-  const categoryOption = [...new Set(items
-    .map(i => i.category?.name)
-    .filter(Boolean))];
+  const categoryOption = [
+    ...new Set(items.map((i) => i.category?.name).filter(Boolean)),
+  ];
 
-  const typeOptions = [...new Set(
-      items.map(i => i.contenttype)
-    )]; 
+  const typeOptions = [...new Set(items.map((i) => i.contenttype))];
 
-  const tagOptions = [...new Set(
-      items.flatMap(i => i.tags?.map(tag => tag.name) ?? [])
-    )];
+  const tagOptions = [
+    ...new Set(items.flatMap((i) => i.tags?.map((tag) => tag.name) ?? [])),
+  ];
 
   return (
     <>
-     <section aria-labelledby="filters-heading">
-          <h2 id="filters-heading">Filter Catalogue</h2>
-          <CategorySearchBar onSearchTermChange={handleSearchChange} searchTerm={searchTerm} categoryOptions={categoryOption}
-          typeOptions = {typeOptions} tagOptions={tagOptions} selectedCategory={selectedCategory}
-          selectedType={selectedType} selectedTags={selectedTags} setSelectedCategory={setSelectedCategory}
-          setSelectedType={setSelectedType} setSelectedTags={setSelectedTags}
-          />
-        </section>
-  
-        <section aria-labelledby="results-heading">
-          <h2 id="results-heading">Catalogue Results</h2>
-         <ContentList />
-        </section>
-    </>
-  )
-}
+      <section aria-labelledby="filters-heading">
+        <h2 id="filters-heading">Filter Catalogue</h2>
+        <CategorySearchBar
+          onSearchTermChange={handleSearchChange}
+          searchTerm={searchTerm}
+          categoryOptions={categoryOption}
+          typeOptions={typeOptions}
+          tagOptions={tagOptions}
+          selectedCategory={selectedCategory}
+          selectedType={selectedType}
+          selectedTags={selectedTags}
+          setSelectedCategory={setSelectedCategory}
+          setSelectedType={setSelectedType}
+          setSelectedTags={setSelectedTags}
+        />
+      </section>
 
-export default FilterableContentCatalogue
+      <section aria-labelledby="results-heading">
+        <h2 id="results-heading">Catalogue Results</h2>
+        <ContentList />
+      </section>
+    </>
+  );
+};
+
+export default FilterableContentCatalogue;
