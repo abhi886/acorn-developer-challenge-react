@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
+import { CategorySearchBarProps } from './PropTypes'
 
-const CategorySearchBar = () => {
+const CategorySearchBar : FunctionComponent<CategorySearchBarProps> = ({searchTerm, onSearchTermChange} )  => {
   return (
     <>
          <form>
             <label htmlFor="search">Search</label>
             <input
+            value={searchTerm}
+            onChange={e => onSearchTermChange(e.target.value)}
               id="search"
               name="search"
               type="text"
