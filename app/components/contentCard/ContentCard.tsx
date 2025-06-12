@@ -1,17 +1,25 @@
 import React from 'react';
+import Image from 'next/image';
 
-const CategoryCard = () => {
+const ContentCard = ({ item }) => {
+  const { fullname, imageurl, summarytext } = item;
+
   return (
     <li>
-    <article>
-      <h3>Item Fullname 1</h3>
-      <p>Summary text for item 1.</p>
-      <p><strong>Category:</strong> Category Name 1</p>
-      <p><strong>Type:</strong> Content Type 1</p>
-      <p><strong>Tags:</strong> Tag1, Tag2, Tag3</p>
-    </article>
-  </li>
-  )
-}
+      <a href={item.url} target="_blank" rel="noopener noreferrer">
+        {imageurl ? (
+          <Image src={imageurl} alt={fullname} width={300} height={180} />
+        ) : (
+          ''
+        )}
+        <h3>{fullname}</h3>
+        <p>
+          {summarytext.slice(0, 180)}
+          {summarytext.length > 180 && '...'}
+        </p>
+      </a>
+    </li>
+  );
+};
 
-export default CategoryCard
+export default ContentCard;

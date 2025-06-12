@@ -47,7 +47,6 @@ const FilterableContentCatalogue = ({ catalogueData }) => {
       return matchesCategory && matchesType && matchesTags && matchesSearch;
     });
   }, [items, selectedCategory, selectedType, selectedTags, searchTerm]);
-
   return (
     <>
       <section aria-labelledby="filters-heading">
@@ -88,7 +87,7 @@ const FilterableContentCatalogue = ({ catalogueData }) => {
             .
           </p>
         ) : (
-          <ContentList />
+          <ContentList content={filteredItems} />
         )}
       </section>
     </>

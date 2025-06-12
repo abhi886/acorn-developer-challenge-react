@@ -1,12 +1,14 @@
-import React from 'react'
-import CategoryCard from '../contentCard/ContentCard';
+import React from 'react';
+import ContentCard from '../contentCard/ContentCard';
 
-const ContentList = () => {
+const ContentList = ({ content }) => {
   return (
-     <ul>
-           <CategoryCard/>
-     </ul>
-  )
-}
+    <ul>
+      {content.map((item) => (
+        <ContentCard key={item.contentid} item={item} />
+      ))}
+    </ul>
+  );
+};
 
-export default ContentList
+export default ContentList;
