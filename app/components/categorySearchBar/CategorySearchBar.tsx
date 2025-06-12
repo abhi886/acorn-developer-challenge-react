@@ -2,6 +2,13 @@ import React, { FunctionComponent } from 'react';
 import { CategorySearchBarProps } from './PropTypes';
 import ComboBox from '../core/comboBox/ComboBox';
 import Input from '../core/input/Input';
+import { Box, Button, Chip, Grid, Typography, Paper } from '@mui/material';
+
+/**
+ * CategorySearchBar Component
+ *
+ * Provides filters to search content by keyword, category, type, and tags.
+ */
 
 const CategorySearchBar: FunctionComponent<CategorySearchBarProps> = ({
   searchTerm,
@@ -19,77 +26,101 @@ const CategorySearchBar: FunctionComponent<CategorySearchBarProps> = ({
   isFilterActive,
 }) => {
   return (
-    <>
-      <form>
-        <label htmlFor="search">Search</label>
-        <Input
-          id="search"
-          label="Search Catalogue"
-          variant="outlined"
-          fullWidth
-          value={searchTerm}
-          onChange={(e) => onSearchTermChange(e.target.value)}
-          placeholder="Search catalogue..."
-          inputProps={{ 'aria-label': 'Search catalogue' }}
-        />
+    <Paper
+      elevation={0}
+      sx={{
+        p: 4,
+        mb: 2,
+        mx: 'auto',
+        m: 2,
+      }}
+    >
+      {/* Main Filter Inputs */}
+      <Grid container spacing={1} sx={{ mb: 2 }}>
+        {/* Search Field */}
+        <Grid size={{ xs: 12, sm: 12, md: 3 }}>
+          <Input
+            id="search"
+            label="Search Catalogue"
+            variant="outlined"
+            fullWidth
+            value={searchTerm}
+            onChange={(e) => onSearchTermChange(e.target.value)}
+            placeholder="Search catalogue..."
+            inputProps={{ 'aria-label': 'Search catalogue' }}
+          />
+        </Grid>
 
-        <ComboBox
-          options={categoryOptions}
-          value={selectedCategory}
-          onChange={setSelectedCategory}
-          label="Category"
-        />
+        {/* Combobox to select categories */}
+        <Grid size={{ xs: 12, sm: 12, md: 3 }}>
+          <ComboBox
+            options={categoryOptions}
+            value={selectedCategory}
+            onChange={setSelectedCategory}
+            label="Category"
+          />
+        </Grid>
 
-        <ComboBox
-          options={typeOptions}
-          value={selectedType}
-          onChange={setSelectedType}
-          label="Type"
-        />
+        {/* Combobox to select types */}
+        <Grid size={{ xs: 12, sm: 12, md: 3 }}>
+          <ComboBox
+            options={typeOptions}
+            value={selectedType}
+            onChange={setSelectedType}
+            label="Type"
+          />
+        </Grid>
 
-        {isFilterActive && (
-          <button
-            type="button"
-            aria-label="Clear all filters"
+        {/* Clear Filters Button */}
+        <Grid item xs={12} md={3} sx={{ height: '100%', alignItems: 'center' }}>
+          <Button
+            fullWidth
+            variant="outlined"
+            color="primary"
+            disabled={!isFilterActive}
             onClick={handleFilterClear}
+            sx={{ height: '100%', p: 2 }}
           >
             Clear Filters
-          </button>
-        )}
-
-        <fieldset>
-          <legend>Filter by tags</legend>
-          <div role="group" aria-label="Tag filters">
-            {tagOptions?.map((tag) => {
-              const isSelected = selectedTags?.includes(tag);
-              return (
-                <button
-                  key={tag}
-                  type="button"
-                  onClick={() =>
-                    setSelectedTags((prev) =>
-                      prev.includes(tag)
-                        ? prev.filter((t) => t !== tag)
-                        : [...prev, tag]
-                    )
-                  }
-                  style={{
-                    padding: '6px 12px',
-                    margin: '4px',
-                    border: '1px solid #ccc',
-                    borderRadius: '4px',
-                    backgroundColor: isSelected ? '#007BFF' : '#fff',
-                    cursor: 'pointer',
-                  }}
-                >
-                  {tag}
-                </button>
-              );
-            })}
-          </div>
-        </fieldset>
-      </form>
-    </>
+          </Button>
+        </Grid>
+      </Grid>
+      {/* Filter by Tag section */}
+      <Box>
+        <Typography variant="subtitle1" sx={{ mb: 1 }}>
+          Filter by Tags
+        </Typography>
+        <Box
+          role="group"
+          aria-label="Tag filters"
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 1,
+          }}
+        >
+          {tagOptions?.map((tag) => {
+            const isSelected = selectedTags?.includes(tag);
+            return (
+              <Chip
+                key={tag}
+                label={tag}
+                color={isSelected ? 'primary' : 'default'}
+                variant={isSelected ? 'filled' : 'outlined'}
+                onClick={() =>
+                  setSelectedTags((prev) =>
+                    prev.includes(tag)
+                      ? prev.filter((t) => t !== tag)
+                      : [...prev, tag]
+                  )
+                }
+                sx={{ cursor: 'pointer' }}
+              />
+            );
+          })}
+        </Box>
+      </Box>
+    </Paper>
   );
 };
 
