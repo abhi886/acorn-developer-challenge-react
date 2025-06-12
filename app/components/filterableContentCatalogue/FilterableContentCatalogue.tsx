@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import CategorySearchBar from '../categorySearchBar/CategorySearchBar';
 import ContentList from '../contentList/ContentList';
 
@@ -25,6 +25,30 @@ const FilterableContentCatalogue = ({ catalogueData }) => {
     ...new Set(items.flatMap((i) => i.tags?.map((tag) => tag.name) ?? [])),
   ];
 
+  const filteredItems = useMemo(() => {
+    return items.filter((item) => {
+      const matchesCategory = selectedCategory
+        ? item.category?.name === selectedCategory
+        : true;
+
+      const matchesType = selectedType
+        ? item.contenttype === selectedType
+        : true;
+
+      const matchesTags =
+        selectedTags.length > 0
+          ? selectedTags.every((tag) => item.tags?.some((t) => t.name === tag))
+          : true;
+
+      const matchesSearch = searchTerm
+        ? item.fullname.toLowerCase().includes(searchTerm.toLowerCase())
+        : true;
+
+      return matchesCategory && matchesType && matchesTags && matchesSearch;
+    });
+  }, [items, selectedCategory, selectedType, selectedTags, searchTerm]);
+
+  console.log('filtered category', filteredItems);
   return (
     <>
       <section aria-labelledby="filters-heading">
