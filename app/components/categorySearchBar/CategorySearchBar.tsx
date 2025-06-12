@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from "react";
-import { CategorySearchBarProps } from "./PropTypes";
+import React, { FunctionComponent } from 'react';
+import { CategorySearchBarProps } from './PropTypes';
 
-const CategorySearchBar  : FunctionComponent<CategorySearchBarProps>  = ({
+const CategorySearchBar: FunctionComponent<CategorySearchBarProps> = ({
   searchTerm,
   onSearchTermChange,
   categoryOptions,
@@ -11,7 +11,7 @@ const CategorySearchBar  : FunctionComponent<CategorySearchBarProps>  = ({
   selectedType,
   setSelectedCategory,
   setSelectedType,
-  setSelectedTags
+  setSelectedTags,
 }) => {
   return (
     <>
@@ -28,7 +28,13 @@ const CategorySearchBar  : FunctionComponent<CategorySearchBarProps>  = ({
         />
 
         <label htmlFor="category">Category</label>
-        <select id="category" name="category" aria-label="Select category" value={selectedCategory} onChange={(e) => setSelectedCategory?.(e.target.value)}>
+        <select
+          id="category"
+          name="category"
+          aria-label="Select category"
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory?.(e.target.value)}
+        >
           <option value="">All Categories</option>
           {categoryOptions?.map((category, index) => (
             <option key={index} value={category}>
@@ -38,7 +44,13 @@ const CategorySearchBar  : FunctionComponent<CategorySearchBarProps>  = ({
         </select>
 
         <label htmlFor="type">Type</label>
-        <select id="type" name="type" aria-label="Select type" value={selectedType} onChange={(e) => setSelectedType?.(e.target.value)}>
+        <select
+          id="type"
+          name="type"
+          aria-label="Select type"
+          value={selectedType}
+          onChange={(e) => setSelectedType?.(e.target.value)}
+        >
           <option value="">All Types</option>
           {typeOptions?.map((type, index) => (
             <option key={index} value={type}>
@@ -51,18 +63,19 @@ const CategorySearchBar  : FunctionComponent<CategorySearchBarProps>  = ({
           <legend>Filter by tags</legend>
           <div role="group" aria-label="Tag filters">
             {tagOptions?.map((tag) => (
-          <button
-          key={tag}
-          onClick={() =>
-            setSelectedTags((prev) =>
-              prev.includes(tag)
-                ? prev.filter((t) => t !== tag)
-                : [...prev, tag]
-            )
-          }
-        >
-          {tag}
-        </button>
+              <button
+                key={tag}
+                type="button"
+                onClick={() =>
+                  setSelectedTags((prev) =>
+                    prev.includes(tag)
+                      ? prev.filter((t) => t !== tag)
+                      : [...prev, tag]
+                  )
+                }
+              >
+                {tag}
+              </button>
             ))}
           </div>
         </fieldset>
