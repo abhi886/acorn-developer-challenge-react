@@ -87,7 +87,7 @@ const CategorySearchBar: FunctionComponent<CategorySearchBarProps> = ({
       </Grid>
       {/* Filter by Tag section */}
       <Box>
-        <Typography variant="subtitle1" sx={{ mb: 1 }}>
+        <Typography component="h3" variant="subtitle1" sx={{ mb: 1 }}>
           Filter by Tags
         </Typography>
         <Box

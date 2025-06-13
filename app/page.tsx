@@ -8,7 +8,10 @@ export default async function Home() {
   const { data } = await getCatalogue();
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Typography variant="h4" fontWeight={600} sx={{ mb: 2 }}>
+      <Typography
+        variant="h2"
+        sx={{ fontSize: '2rem', fontWeight: 600, mb: 2 }}
+      >
         ABC Catalogue Items
       </Typography>
 
