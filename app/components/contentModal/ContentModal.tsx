@@ -75,7 +75,7 @@ const ContentModal = ({ selectedItem, closeModal }) => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#888',
+              color: '#333',
               fontStyle: 'italic',
               fontSize: '1rem',
             }}
