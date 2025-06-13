@@ -36,7 +36,7 @@ const ContentCard = ({ item, onClick }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#888',
+            color: '#333',
             fontStyle: 'italic',
           }}
         >
