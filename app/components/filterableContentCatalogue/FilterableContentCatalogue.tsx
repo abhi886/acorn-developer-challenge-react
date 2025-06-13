@@ -1,5 +1,4 @@
 'use client';
-import React, { useCallback } from 'react';
 import { useState, useMemo } from 'react';
 import CategorySearchBar from '../categorySearchBar/CategorySearchBar';
 import ContentList from '../contentList/ContentList';

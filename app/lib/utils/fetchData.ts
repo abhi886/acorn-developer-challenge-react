@@ -1,5 +1,5 @@
-const BASE_URL = process.env.ACORN_API_BASE_URL!;
-const BEARER_TOKEN = process.env.ACORN_API_BEARER_TOKEN!;
+const BASE_URL = process.env.ACORN_API_BASE_URL! || 'https://staging.acornlms.com';;
+const BEARER_TOKEN = process.env.ACORN_API_BEARER_TOKEN! || "ODJuU1ZDakRsdTkxb21OOGF6a3lqbFlXUzN4QzgxOU5FMzdWTERZcA==";
 
 export const fetchData = async <T>(requestUrl: string): Promise<T> => {
   const fullUrl = `${BASE_URL}${requestUrl}`;
