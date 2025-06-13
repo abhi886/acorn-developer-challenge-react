@@ -1,1 +1,1 @@
-export * from "./FilterableContentCatalogue"
+export * from "./FilterableContentCatalogue";
