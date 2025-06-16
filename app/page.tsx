@@ -9,7 +9,7 @@ export default async function Home() {
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <Typography
-        variant="h2"
+        variant="h1"
         sx={{ fontSize: '2rem', fontWeight: 600, mb: 2 }}
       >
         ABC Catalogue Items
