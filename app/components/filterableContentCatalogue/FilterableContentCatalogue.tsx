@@ -1,5 +1,4 @@
 'use client';
-import React, { useCallback } from 'react';
 import { useState, useMemo } from 'react';
 import CategorySearchBar from '../categorySearchBar/CategorySearchBar';
 import ContentList from '../contentList/ContentList';
@@ -22,7 +21,7 @@ const FilterableContentCatalogue = ({ catalogueData }) => {
   const [selectedType, setSelectedType] = useState<string>('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  const items = catalogueData.items || [];
+  const items = useMemo(() => catalogueData.items || [], [catalogueData]);
   const isFilterActive =
     searchTerm || selectedCategory || selectedType || selectedTags.length > 0;
 
