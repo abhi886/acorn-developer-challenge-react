@@ -1,9 +1,9 @@
 'use client';
-import React, { useCallback } from 'react';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, FC } from 'react';
 import CategorySearchBar from '../categorySearchBar/CategorySearchBar';
 import ContentList from '../contentList/ContentList';
 import { Box, Typography, Paper } from '@mui/material';
+import { CatalogueDataProps } from './PropTypes';
 
 /**
  * FilterableContentCatalogue Component
@@ -15,17 +15,19 @@ import { Box, Typography, Paper } from '@mui/material';
  * - Tags
  */
 
-const FilterableContentCatalogue = ({ catalogueData }) => {
+const FilterableContentCatalogue: FC<CatalogueDataProps> = ({
+  catalogueData,
+}) => {
   // State for filters
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [selectedType, setSelectedType] = useState<string>('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  const items = catalogueData.items || [];
-  const isFilterActive =
-    searchTerm || selectedCategory || selectedType || selectedTags.length > 0;
-
+  const items = useMemo(() => catalogueData.items || [], [catalogueData]);
+  const isFilterActive = Boolean(
+    searchTerm || selectedCategory || selectedType || selectedTags.length > 0
+  );
   // Handlers
   const handleSearchChange = (newValue: string) => {
     setSearchTerm(newValue);
@@ -119,13 +121,16 @@ const FilterableContentCatalogue = ({ catalogueData }) => {
       {/* Results Section */}
       <section aria-labelledby="results-heading">
         <Box px={2} textAlign="center" sx={{ mt: 6 }}>
+          <Typography variant="h5" component="h2" sx={{ mb: 2 }}>
+            Available Content
+          </Typography>
           {filteredItems.length === 0 ? (
             <Typography variant="body1">
               0 results
               {searchTerm && (
                 <>
                   {' '}
-                  for <strong>"{searchTerm}"</strong>
+                  for <strong>&quot;{searchTerm}&quot;</strong>
                 </>
               )}
               {selectedCategory && (

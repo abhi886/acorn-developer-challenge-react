@@ -2,10 +2,11 @@ import React, { FunctionComponent } from 'react';
 import { CategorySearchBarProps } from './PropTypes';
 import ComboBox from '../core/comboBox/ComboBox';
 import Input from '../core/input/Input';
-import { Box, Button, Chip, Grid, Typography, Paper } from '@mui/material';
+import { Box, Button, Chip, Typography, Paper } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
-/**
- * CategorySearchBar Component
+/* CategorySearchBar Component
  *
  * Provides filters to search content by keyword, category, type, and tags.
  */
@@ -29,14 +30,13 @@ const CategorySearchBar: FunctionComponent<CategorySearchBarProps> = ({
     <Paper
       elevation={0}
       sx={{
-        p: 4,
-        mb: 2,
-        mx: 'auto',
-        m: 2,
+        p: { xs: 2, sm: 3, md: 4 },
+        mb: 4,
+        borderRadius: 2,
       }}
     >
       {/* Main Filter Inputs */}
-      <Grid container spacing={1} sx={{ mb: 2 }}>
+      <Grid container spacing={2} alignItems="center">
         {/* Search Field */}
         <Grid size={{ xs: 12, sm: 12, md: 3 }}>
           <Input
@@ -45,34 +45,42 @@ const CategorySearchBar: FunctionComponent<CategorySearchBarProps> = ({
             variant="outlined"
             fullWidth
             value={searchTerm}
-            onChange={(e) => onSearchTermChange(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              onSearchTermChange(e.target.value)
+            }
             placeholder="Search catalogue..."
-            inputProps={{ 'aria-label': 'Search catalogue' }}
+            slotProps={{
+              htmlInput: {
+                'data-testid': 'search-id',
+              },
+            }}
           />
         </Grid>
 
         {/* Combobox to select categories */}
         <Grid size={{ xs: 12, sm: 12, md: 3 }}>
           <ComboBox
+            id={'select-category'}
             options={categoryOptions}
             value={selectedCategory}
-            onChange={setSelectedCategory}
-            label="Category"
+            onValueChange={setSelectedCategory}
+            label="Choose a category"
           />
         </Grid>
 
         {/* Combobox to select types */}
         <Grid size={{ xs: 12, sm: 12, md: 3 }}>
           <ComboBox
+            id={'select-type'}
             options={typeOptions}
             value={selectedType}
-            onChange={setSelectedType}
-            label="Type"
+            onValueChange={setSelectedType}
+            label="Choose a type"
           />
         </Grid>
 
         {/* Clear Filters Button */}
-        <Grid item xs={12} md={3} sx={{ height: '100%', alignItems: 'center' }}>
+        <Grid size={{ xs: 12, sm: 12, md: 3 }}>
           <Button
             fullWidth
             variant="outlined"
@@ -80,14 +88,19 @@ const CategorySearchBar: FunctionComponent<CategorySearchBarProps> = ({
             disabled={!isFilterActive}
             onClick={handleFilterClear}
             sx={{ height: '100%', p: 2 }}
+            startIcon={<RestartAltIcon />}
           >
             Clear Filters
           </Button>
         </Grid>
       </Grid>
       {/* Filter by Tag section */}
-      <Box>
-        <Typography component="h3" variant="subtitle1" sx={{ mb: 1 }}>
+      <Box sx={{ mt: 4 }}>
+        <Typography
+          component="h3"
+          variant="subtitle1"
+          sx={{ mb: 1, fontWeight: 500 }}
+        >
           Filter by Tags
         </Typography>
         <Box
@@ -114,7 +127,11 @@ const CategorySearchBar: FunctionComponent<CategorySearchBarProps> = ({
                       : [...prev, tag]
                   )
                 }
-                sx={{ cursor: 'pointer' }}
+                sx={{
+                  cursor: 'pointer',
+                  fontSize: '0.85rem',
+                  px: 1,
+                }}
               />
             );
           })}

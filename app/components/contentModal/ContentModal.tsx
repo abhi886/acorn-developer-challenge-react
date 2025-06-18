@@ -1,5 +1,4 @@
-'use client';
-import React from 'react';
+import React, { FC } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -12,6 +11,7 @@ import {
   Divider,
   CardMedia,
 } from '@mui/material';
+import { ContentModalPropTypes } from './PropTypes';
 
 /**
  * A modal dialog that shows detailed content information.
@@ -22,7 +22,10 @@ import {
  * - closeModal: function to close the modal
  */
 
-const ContentModal = ({ selectedItem, closeModal }) => {
+const ContentModal: FC<ContentModalPropTypes> = ({
+  selectedItem,
+  closeModal,
+}) => {
   // Return null if no item is selected
   if (!selectedItem) return null;
 
@@ -36,22 +39,28 @@ const ContentModal = ({ selectedItem, closeModal }) => {
       maxWidth="md"
       fullWidth
       aria-labelledby="content-dialog-title"
-      sx={{ '& .MuiDialog-paper': { borderRadius: 3, p: 2 } }}
+      sx={{
+        '& .MuiDialog-paper': {
+          borderRadius: 4,
+          p: 3,
+          backgroundColor: '#fff',
+        },
+      }}
     >
       {/* Title */}
       <DialogTitle
         id="content-dialog-title"
         sx={{
-          fontWeight: 'bold',
-          fontSize: '1.5rem',
-          pb: 0,
+          fontWeight: 600,
+          fontSize: '1.75rem',
+          mb: 1,
         }}
       >
         {fullname}
       </DialogTitle>
 
       {/* Main Content */}
-      <DialogContent dividers sx={{ pt: 2, pb: 3 }}>
+      <DialogContent dividers sx={{ pt: 1 }}>
         {/* Image or fallback */}
         {imageurl ? (
           <CardMedia
@@ -59,25 +68,25 @@ const ContentModal = ({ selectedItem, closeModal }) => {
             image={imageurl}
             alt={fullname}
             sx={{
-              width: '100%',
-              height: 300,
-              borderRadius: '12px',
-              objectFit: 'cover',
+              maxWidth: '100%',
+              maxHeight: 300,
+              borderRadius: 2,
+              objectFit: 'contain',
+              display: 'block',
             }}
           />
         ) : (
           <Box
             sx={{
               width: '100%',
-              height: 300,
+              height: { xs: 200, sm: 300 },
               backgroundColor: '#f0f0f0',
-              borderRadius: '12px',
+              borderRadius: 2,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#333',
+              color: '#888',
               fontStyle: 'italic',
-              fontSize: '1rem',
             }}
           >
             No image available
@@ -85,45 +94,57 @@ const ContentModal = ({ selectedItem, closeModal }) => {
         )}
 
         {/* Summary Section */}
-        <Typography variant="subtitle1" gutterBottom fontWeight={500}>
-          <strong>Summary</strong>
+        <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
+          Summary{' '}
         </Typography>
 
-        <Typography variant="body2" sx={{ mb: 2 }}>
+        <Typography variant="body1" sx={{ mb: 3 }}>
           {summarytext || 'No summary provided.'}
         </Typography>
 
-        <Divider sx={{ my: 2 }} />
+        <Divider sx={{ my: 3 }} />
 
         {/* Meta Details */}
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
-          <Typography variant="body2">
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 4,
+            mb: 3,
+            fontSize: '0.95rem',
+          }}
+        >
+          <Typography>
             <strong>Category:</strong> {category?.name || 'N/A'}
           </Typography>
-          <Typography variant="body2">
+          <Typography>
             <strong>Type:</strong> {contenttype || 'N/A'}
           </Typography>
         </Box>
 
-        <Divider sx={{ my: 2 }} />
-
         {/* Tags */}
         {tags?.length > 0 && (
-          <Box sx={{ mt: 3 }}>
-            <Typography variant="subtitle2" gutterBottom fontWeight={500}>
-              <strong>Tags</strong>
+          <>
+            <Typography variant="h6" gutterBottom>
+              Tags
             </Typography>
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
               {tags.map((tag) => (
-                <Chip key={tag.name} label={tag.name} />
+                <Chip
+                  key={tag.name}
+                  label={tag.name}
+                  size="small"
+                  color="primary"
+                  variant="outlined"
+                />
               ))}
             </Box>
-          </Box>
+          </>
         )}
       </DialogContent>
 
       {/* Actions */}
-      <DialogActions sx={{ px: 3, pb: 2 }}>
+      <DialogActions sx={{ mt: 2 }}>
         <Button onClick={closeModal} color="secondary">
           Close
         </Button>
