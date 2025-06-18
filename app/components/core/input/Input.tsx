@@ -18,7 +18,7 @@ const Input: FC<InputProps> = ({
   fullWidth,
   value,
   onChange,
-  type,
+  // type,
   placeholder,
   slotProps,
 }) => {
@@ -30,7 +30,6 @@ const Input: FC<InputProps> = ({
       fullWidth={fullWidth}
       value={value}
       onChange={onChange}
-      type={type}
       placeholder={placeholder}
       slotProps={slotProps}
     />

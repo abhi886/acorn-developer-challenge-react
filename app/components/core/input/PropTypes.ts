@@ -7,7 +7,6 @@ export type InputProps = {
   fullWidth: boolean;
   value: string;
   onChange:(event: React.ChangeEvent<HTMLInputElement>) => void;
-  type: string;
   placeholder?: string;
   slotProps?: TextFieldProps['slotProps'];
 }

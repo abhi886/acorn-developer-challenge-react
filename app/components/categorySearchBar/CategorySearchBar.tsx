@@ -48,12 +48,10 @@ const CategorySearchBar: FunctionComponent<CategorySearchBarProps> = ({
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               onSearchTermChange(e.target.value)
             }
-            type="button"
             placeholder="Search catalogue..."
-            // slotProps={{ 'aria-label': 'Search catalogue' }}
             slotProps={{
-              input: {
-                'aria-label': 'Search catalogue',
+              htmlInput: {
+                'data-testid': 'search-id',
               },
             }}
           />
