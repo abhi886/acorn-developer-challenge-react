@@ -1,8 +1,10 @@
 'use client';
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import ContentCard from '../contentCard/ContentCard';
 import ContentModal from '../contentModal/ContentModal';
-import { Grid, Dialog } from '@mui/material';
+import { Grid, Dialog, Container } from '@mui/material';
+import { ContentListProps } from './PropTypes';
+import { CatalogueItem } from '@/app/types/catalogue';
 
 /**
  * Renders a list of content items in a responsive grid layout.
@@ -12,13 +14,13 @@ import { Grid, Dialog } from '@mui/material';
  * - content: Array of content items to display
  */
 
-const ContentList = ({ content }) => {
+const ContentList: FC<ContentListProps> = ({ content }) => {
   // state for modal
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<CatalogueItem | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   // function to open the modal
-  const openModal = (item) => {
+  const openModal = (item: CatalogueItem) => {
     setSelectedItem(item);
     setIsModalOpen(true);
   };
@@ -31,17 +33,20 @@ const ContentList = ({ content }) => {
   return (
     <>
       {/* Content Grid */}
-      <Grid container spacing={4} sx={{ mb: 2 }}>
-        {content.map((item) => (
-          <Grid key={item.contentid} size={{ xs: 12, sm: 6, md: 4 }}>
-            <ContentCard
-              key={item.contentid}
-              item={item}
-              onClick={() => openModal(item)}
-            />
-          </Grid>
-        ))}
-      </Grid>
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+        <Grid container spacing={4}>
+          {content.map((item) => (
+            <Grid key={item.contentid} size={{ xs: 12, sm: 6, md: 4 }}>
+              <ContentCard
+                key={item.contentid}
+                item={item}
+                onClick={() => openModal(item)}
+                aria-label={`View details about ${item.fullname}`}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
 
       {/* Content Modal */}
       <Dialog open={isModalOpen} onClose={closeModal} maxWidth="md" fullWidth>
