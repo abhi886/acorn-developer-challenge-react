@@ -1,1 +1,1 @@
-export * from './ContentList'
+export * from './ContentList';
