@@ -2,13 +2,7 @@ import React from 'react';
 import { FunctionComponent } from 'react';
 import { Autocomplete, TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
-
-type ComboBoxProps = {
-  options: string[];
-  value: string;
-  onValueChange: (value: string | null) => void;
-  label: string;
-};
+import { ComboBoxProps } from './PropsTypes';
 
 const StyledAutocomplete = styled(Autocomplete<string>)(() => ({
   backgroundColor: '#f9f9f9',
@@ -16,22 +10,23 @@ const StyledAutocomplete = styled(Autocomplete<string>)(() => ({
 }));
 
 const ComboBox: FunctionComponent<ComboBoxProps> = ({
-  options = [],
-  value = '',
+  options,
+  value,
   onValueChange,
   label,
+  id,
 }) => {
   return (
     <StyledAutocomplete
       fullWidth
+      id={id}
       options={options}
       value={value}
       onChange={(_event, newValue) => {
         onValueChange(newValue ?? '');
       }}
-      renderInput={(params) => (
-        <TextField {...params} label={label} aria-label={label} />
-      )}
+      renderInput={(params) => <TextField {...params} label={label} />}
+      // data-testid={`${id}-autocomplete`}
     />
   );
 };
